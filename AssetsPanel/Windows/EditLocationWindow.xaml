@@ -1,0 +1,26 @@
+﻿<Window x:Class="AssetsPanel.Windows.EditLocationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AssetsPanel.Windows"
+        xmlns:entity="clr-namespace:AssetsDb.Entity;assembly=AssetsDb"
+        mc:Ignorable="d"
+        Title="Редактирование местоположения актива" Height="400" Width="400" >
+    <Grid>
+        <StackPanel Margin="5">
+            <Label>Название</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Name, ValidatesOnDataErrors=True}"/>
+            </Border>
+            <Label>Информация</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Info, ValidatesOnDataErrors=True}" AcceptsReturn="True" MinLines="3"/>
+            </Border>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <Button Style="{StaticResource ActionBtn}" Width="100" Content="Сохранить" Click="ButtonBase_OnClick"></Button>
+                <Button Style="{StaticResource ActionBtn}" Width="100" Content="Отмена" Click="ButtonBase_OnClick1"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

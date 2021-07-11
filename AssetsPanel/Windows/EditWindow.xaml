@@ -1,0 +1,83 @@
+﻿<Window x:Class="AssetsPanel.Windows.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AssetsPanel.Windows"
+        xmlns:entity="clr-namespace:AssetsDb.Entity;assembly=AssetsDb"
+        mc:Ignorable="d"
+        Title="Редактирование актива" Height="700" Width="400" >
+    <ScrollViewer>
+        <StackPanel Margin="5">
+            <Label>Название</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Name, ValidatesOnDataErrors=True}"/>
+            </Border>
+            <Label>Тип</Label>
+            <CheckBox IsChecked="{Binding IsMonetary}">Денежный</CheckBox>
+            <Label>Стоимость</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Amount, ValidatesOnDataErrors=True}"/>
+            </Border>
+            <Label>Начальная</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Initial_val}" IsReadOnly="{Binding IsMonetary}"/>
+            </Border>
+            <Label>Остаточная</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Residual_val}" IsReadOnly="{Binding IsMonetary}"/>
+            </Border>
+            <Label>Оценочная</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Assessed_val}" IsReadOnly="{Binding IsMonetary}"/>
+            </Border>
+            <Label>Валюта</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Currency}"/>
+            </Border>
+            <Label>Количество</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Count}" IsReadOnly="{Binding IsMonetary}"/>
+            </Border>
+            <Label>Ед. измерения</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Unit}" IsReadOnly="{Binding IsMonetary}"/>
+            </Border>
+            <Label>Расположение актива
+            </Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:EditWindow}, Path=Locations}"
+                          SelectedItem="{Binding Location}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type entity:Location}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Style="{StaticResource EmptyBtn}" Content="&#9998;" Foreground="CornflowerBlue" 
+                                        HorizontalAlignment="Left" Margin="0,5" CommandParameter="{Binding}"
+                                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:EditWindow}, Path=EditLocation}"></Button>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Name}"></TextBlock>
+                                
+                            </Grid>
+                           
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Border>
+            <Button Style="{StaticResource ActionBtn}" Content="Добавить расположение" 
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:EditWindow}, Path=AddLocation}"
+                    HorizontalAlignment="Left" Margin="0,5"></Button>
+            <Label>Дополнительно</Label>
+            <Border CornerRadius="2" BorderThickness="2" BorderBrush="CornflowerBlue">
+                <TextBox BorderThickness="0" Padding="2,0" Text="{Binding Additional}"/>
+            </Border>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <Button Style="{StaticResource ActionBtn}" Width="100" Content="Сохранить" Click="ButtonBase_OnClick"></Button>
+                <Button Style="{StaticResource ActionBtn}" Width="100" Content="Отмена" Click="ButtonBase1_OnClick"></Button>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+    
+</Window>
