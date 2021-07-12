@@ -10,7 +10,7 @@ namespace AssetsDb
 {
     public class AssetsDatabase : DbContext
     {
-        public AssetsDatabase() : base("AssetsDatabase")
+        public AssetsDatabase() : base("AssetsDatabase1")
         {
             System.Data.Entity.Database.SetInitializer(new AssetsInitializer());
         }
@@ -22,6 +22,14 @@ namespace AssetsDb
         /// Активы предприятий
         /// </summary>
         public DbSet<Asset> Assets { get; set; }
+        /// <summary>
+        /// Недвижимые активы предприятий
+        /// </summary>
+        public DbSet<ImmovableAsset> ImmovableAssets { get; set; }
+        /// <summary>
+        /// Движимые активы предприятий
+        /// </summary>
+        public DbSet<MovablesAsset> MovablesAssets { get; set; }
         /// <summary>
         /// Места нахождения активов
         /// </summary>

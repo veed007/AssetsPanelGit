@@ -27,11 +27,25 @@ namespace AssetsPanel.ViewModels
         private ICommand _edit;
         private ICommand _add;
         private ICommand _delete;
+        private ICommand _changeType;
         private Asset _selectedAsset;
+        private AssetType _assetType;
+        private bool _gridTypeVisible;
+
         #endregion
 
         #region props
-        
+
+        public bool GridTypeVisible
+        {
+            get => _gridTypeVisible;
+            set
+            {
+                _gridTypeVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
         public static AssetsPageViewModel ViewModel => _viewModel ?? (_viewModel = new AssetsPageViewModel());
 
         public ObservableCollection<Asset> Assets
@@ -67,9 +81,10 @@ namespace AssetsPanel.ViewModels
 
         #region commands
 
-        public ICommand Save => _save ?? (_save = new Command(p =>
+       
+        public ICommand ChangeType => _changeType ?? (_changeType = new Command(p =>
         {
-            (App.Current as App).AssetsDb.SaveChanges();
+            if (p != null) _assetType = (AssetType)int.Parse(p.ToString());
         }));
         public ICommand Edit => _edit ?? (_edit = new Command(p =>
         {
@@ -78,41 +93,43 @@ namespace AssetsPanel.ViewModels
                 MessageBox.Show("Выберите актив для редактирования");
                 return;
             }
-            Asset asset = SelectedAsset.Clone();
-
-            EditWindow ew = new EditWindow{ DataContext = asset };
+            //Asset asset = SelectedAsset.Clone();
+            
+            EditWindow ew = new EditWindow{ DataContext = new ObservableCollection<object> {SelectedAsset}};
             
             if (ew.ShowDialog() == true)
             {
-                SelectedAsset.Id = asset.Id;
-                SelectedAsset.Name = asset.Name;
-                SelectedAsset.Amount = asset.Amount;
-                SelectedAsset.Additional = asset.Additional;
-                SelectedAsset.IsMonetary = asset.IsMonetary;
-                SelectedAsset.Assessed_val = asset.Assessed_val;
-                SelectedAsset.Residual_val = asset.Residual_val;
-                SelectedAsset.Unit = asset.Unit;
-                SelectedAsset.Count = asset.Count;
-                SelectedAsset.Currency = asset.Currency;
-                SelectedAsset.LocationId = asset.LocationId;
-                SelectedAsset.Location = asset.Location;
                 (App.Current as App).AssetsDb.SaveChanges();
-                Company = _company;
-            }
                 
-            
-            
+            }
+            (App.Current as App).AssetsDb.Entry(SelectedAsset).Reload();
+            Company = _company;
         }));
         public ICommand Add => _add ?? (_add = new Command(p =>
         {
-            Asset asset = new Asset{Company = _company};
-            EditWindow ew = new EditWindow { DataContext = asset };
+            if (!GridTypeVisible)
+            {
+                GridTypeVisible = true;
+                return;
+            }
+            Asset asset;
+            switch (_assetType)
+            {
+                case AssetType.Asset: asset = new Asset {Company = _company}; break;
+                case AssetType.MovablesAsset: asset = new MovablesAsset { Company = _company }; break;
+                case AssetType.ImmovablesAsset: asset = new ImmovableAsset() { Company = _company }; break;
+                default: return;
+            }
+            
+            EditWindow ew = new EditWindow { DataContext = new ObservableCollection<object>{asset} };
             if (ew.ShowDialog() == true)
             {
                 (App.Current as App).AssetsDb.Assets.Add(asset);
                 (App.Current as App).AssetsDb.SaveChanges();
                 Company = _company;
             }
+
+            GridTypeVisible = false;
         }));
         public ICommand Delete => _delete ?? (_delete = new Command(p =>
         {
@@ -134,6 +151,13 @@ namespace AssetsPanel.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public enum AssetType
+        {
+            Asset,
+            ImmovablesAsset,
+            MovablesAsset
         }
     }
 }

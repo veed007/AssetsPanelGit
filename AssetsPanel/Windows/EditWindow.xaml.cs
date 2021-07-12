@@ -31,19 +31,18 @@ namespace AssetsPanel.Windows
         {
             if (p==null) return;
             Location location = p as Location;
-            Location clone = location.Clone();
-            EditLocationWindow elw = new EditLocationWindow {DataContext = clone};
+            //Location clone = location.Clone();
+            EditLocationWindow elw = new EditLocationWindow {DataContext = location};
             if (elw.ShowDialog() == true)
             {
-                location.Name = clone.Name;
-                location.Info = clone.Info;
                 (App.Current as App).AssetsDb.SaveChanges();
-                Locations = null;
-                (App.Current as App).AssetsDb.Locations.Load();
-                Locations = (App.Current as App).AssetsDb.Locations.Local;
-            }
+                //Locations = null;
+                //(App.Current as App).AssetsDb.Locations.Load();
                 
+            }
+            (App.Current as App).AssetsDb.Entry(location).Reload();
 
+            OnPropertyChanged(nameof(Locations));
         }));
         private ICommand _addLocation;
         public ICommand AddLocation => _addLocation ?? (_addLocation = new Command(p =>
@@ -58,7 +57,8 @@ namespace AssetsPanel.Windows
                 (App.Current as App).AssetsDb.Locations.Load();
                 Locations = (App.Current as App).AssetsDb.Locations.Local;
             }
-
+            (App.Current as App).AssetsDb.Entry(location).Reload();
+            OnPropertyChanged(nameof(Locations));
 
         }));
 
@@ -75,9 +75,11 @@ namespace AssetsPanel.Windows
         }
         public EditWindow()
         {
+            
             InitializeComponent();
             (App.Current as App).AssetsDb.Locations.Load();
             Locations = (App.Current as App).AssetsDb.Locations.Local;
+            
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -100,5 +102,7 @@ namespace AssetsPanel.Windows
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         }
+
+        
     }
 }

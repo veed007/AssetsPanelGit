@@ -97,10 +97,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\AssetTemplateSelector.cs" />
     <Compile Include="Converters\RevertBooleanToVisibility.cs" />
-    <Compile Include="Models\Asset.cs" />
-    <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\Location.cs" />
     <Compile Include="Converters\MonetaryConverter.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\Command.cs" />

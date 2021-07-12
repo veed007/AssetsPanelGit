@@ -16,7 +16,7 @@
                   IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" SelectedItem="{Binding SelectedAsset, Mode=OneWayToSource}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название"      Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Тип"           Binding="{Binding IsMonetary, Converter={StaticResource MonetaryConverter}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Тип"           Binding="{Binding Converter={StaticResource MonetaryConverter}}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Стоимость"     Binding="{Binding Amount}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Начальная"     Binding="{Binding Initial_val}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Остаточная"    Binding="{Binding Residual_val}"></DataGridTextColumn>
@@ -24,10 +24,12 @@
                 <DataGridTextColumn Header="Валюта"        Binding="{Binding Currency}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Количество"    Binding="{Binding Count}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Ед. измерения" Binding="{Binding Unit}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Адрес"         Binding="{Binding Address}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Дополнительно" Binding="{Binding Additional}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Grid>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -36,6 +38,17 @@
             <Button Grid.Column="0" Style="{StaticResource ActionBtn}" Content="Добавить" Command="{Binding Add}"/>
             <Button Grid.Column="1" Style="{StaticResource ActionBtn}" Content="Изменить" Command="{Binding Edit}"/>
             <Button Grid.Column="2" Style="{StaticResource ActionBtn}" Content="Удалить" Command="{Binding Delete}"/>
+        </Grid>
+        <Grid x:Name="GridType" Visibility="{Binding GridTypeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <RadioButton GroupName="1" HorizontalAlignment="center" Grid.Column="0" Content="Денежный" Command="{Binding ChangeType}" CommandParameter="0" IsChecked="True"/>
+            <RadioButton GroupName="1" HorizontalAlignment="center" Grid.Column="1" Content="Недвижимость" Command="{Binding ChangeType}" CommandParameter="1"/>
+            <RadioButton GroupName="1" HorizontalAlignment="center" Grid.Column="2" Content="Движимое имущество" Command="{Binding ChangeType}" CommandParameter="2"/>
         </Grid>
     </StackPanel>
 </Page>

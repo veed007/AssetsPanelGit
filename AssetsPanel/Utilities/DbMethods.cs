@@ -21,18 +21,18 @@ namespace AssetsPanel.Utilities
         {
             return new Asset
             {
-                Id = asset.Id,
-                Name = asset.Name,
-                Amount = asset.Amount,
-                IsMonetary = asset.IsMonetary,
-                Additional = asset.Additional,
-                Assessed_val = asset.Assessed_val,
-                Residual_val = asset.Residual_val,
-                Unit = asset.Unit,
-                Count = asset.Count,
-                Currency = asset.Currency,
-                LocationId = asset.LocationId,
-                Location = asset.Location
+                //Id = asset.Id,
+                //Name = asset.Name,
+                //Amount = asset.Amount,
+                //IsMonetary = asset.IsMonetary,
+                //Additional = asset.Additional,
+                //Assessed_val = asset.Assessed_val,
+                //Residual_val = asset.Residual_val,
+                //Unit = asset.Unit,
+                //Count = asset.Count,
+                //Currency = asset.Currency,
+                //LocationId = asset.LocationId,
+                //Location = asset.Location
             };
         }
         public static Location Clone(this Location location)

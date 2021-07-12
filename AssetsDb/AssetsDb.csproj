@@ -55,7 +55,9 @@
     <Compile Include="AssetsDatabase.cs" />
     <Compile Include="Entity\Asset.cs" />
     <Compile Include="Entity\Company.cs" />
+    <Compile Include="Entity\ImmovableAsset.cs" />
     <Compile Include="Entity\Location.cs" />
+    <Compile Include="Entity\MovablesAsset.cs" />
     <Compile Include="Migrations\202107102206561_first1.cs" />
     <Compile Include="Migrations\202107102206561_first1.designer.cs">
       <DependentUpon>202107102206561_first1.cs</DependentUpon>
@@ -67,6 +69,10 @@
     <Compile Include="Migrations\202107111044351_add_currency.cs" />
     <Compile Include="Migrations\202107111044351_add_currency.designer.cs">
       <DependentUpon>202107111044351_add_currency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107121755000_TPH.cs" />
+    <Compile Include="Migrations\202107121755000_TPH.designer.cs">
+      <DependentUpon>202107121755000_TPH.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107111044351_add_currency.resx">
       <DependentUpon>202107111044351_add_currency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107121755000_TPH.resx">
+      <DependentUpon>202107121755000_TPH.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

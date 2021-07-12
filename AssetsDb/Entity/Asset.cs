@@ -23,38 +23,17 @@ namespace AssetsDb.Entity
         /// Общая сумма
         /// </summary>
         public int Amount { get; set; }
-        /// <summary>
-        /// Начальная балансовая стоимость
-        /// </summary>
-        public int Initial_val { get; set; }
-        /// <summary>
-        /// Остаточная балансовая стоимость
-        /// </summary>
-        public int Residual_val { get; set; }
-        /// <summary>
-        /// Оценочная стоимость
-        /// </summary>
-        public int Assessed_val { get; set; }
-        /// <summary>
-        /// Единица измерения(для неденежных)
-        /// </summary>
-        public string Unit { get; set; }
+        
         /// <summary>
         /// Валюта
         /// </summary>
         public string Currency { get; set; }
-        /// <summary>
-        /// Количество
-        /// </summary>
-        public int Count { get; set; }
+
         /// <summary>
         /// Дополнительная информация
         /// </summary>
         public string Additional { get; set; }
-        /// <summary>
-        /// Является ли актив денежным
-        /// </summary>
-        public bool IsMonetary { get; set; }
+
         public int? LocationId { get; set; }
         /// <summary>
         /// Место нахождения актива(банк, касса, собственность)
